@@ -94,6 +94,7 @@ Also, the following ASNs are always included:
  cfg.communities.prefix_not_present_in_as_set|community_is_set or
  cfg.communities.origin_present_in_as_set|community_is_set or
  cfg.communities.origin_not_present_in_as_set|community_is_set or
+ cfg.communities.as_path_contains_transit|community_is_set or
  cfg.communities.prefix_validated_via_rpki_roas|community_is_set or
  cfg.communities.prefix_validated_via_arin_whois_db_dump|community_is_set or
  cfg.communities.prefix_validated_via_registrobr_whois_db_dump|community_is_set)%}
@@ -106,6 +107,7 @@ Also, the following ASNs are always included:
 {{ write_communities_table_row(cfg.communities.prefix_not_present_in_as_set, "Prefix is NOT included in client's AS-SET") -}}
 {{ write_communities_table_row(cfg.communities.origin_present_in_as_set, "Origin ASN is included in client's AS-SET") -}}
 {{ write_communities_table_row(cfg.communities.origin_not_present_in_as_set, "Origin ASN is NOT included in client's AS-SET") -}}
+{{ write_communities_table_row(cfg.communities.as_path_contains_transit, "AS-PATH contains transit providers") -}}
 {{ write_communities_table_row(cfg.communities.prefix_validated_via_rpki_roas, "Prefix matched by a RPKI ROA for the authorized origin ASN") -}}
 {{ write_communities_table_row(cfg.communities.prefix_validated_via_arin_whois_db_dump, "Prefix matched by an entry of the ARIN Whois DB dump") -}}
 {{ write_communities_table_row(cfg.communities.prefix_validated_via_registrobr_whois_db_dump, "Prefix matched by an entry of the NIC.BR Whois DB dump") -}}

@@ -41,6 +41,7 @@ class ConfigParserGeneral(ConfigParserBase):
     COMMUNITIES_SCHEMA = {
         "origin_present_in_as_set": { "type": "outbound" },
         "origin_not_present_in_as_set": { "type": "outbound" },
+        "as_path_contains_transit": { "type": "outbound" },
         "prefix_present_in_as_set": { "type": "outbound" },
         "prefix_not_present_in_as_set": { "type": "outbound" },
         "prefix_validated_via_rpki_roas": { "type": "outbound" },
@@ -141,7 +142,7 @@ class ConfigParserGeneral(ConfigParserBase):
         f["reject_invalid_as_in_as_path"] = ValidatorBool(default=True)
         f["transit_free"] = OrderedDict()
         f["transit_free"]["action"] = ValidatorOption(
-            "action", ("reject", "warning"), mandatory=False, default="reject"
+            "action", ("reject", "warning","tag"), mandatory=False, default="reject"
         )
         f["transit_free"]["asns"] = ValidatorASNList(
             mandatory=False

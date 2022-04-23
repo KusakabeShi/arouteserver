@@ -13,6 +13,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from collections import OrderedDict
+
 from copy import deepcopy
 import logging
 import yaml
@@ -87,6 +89,14 @@ class ConfigParserClients(ConfigParserBase):
                         "white_list_asn": ValidatorASNList(mandatory=False),
                         "white_list_route": ValidatorListOf(
                             ValidatorWhiteListRouteEntry, mandatory=False
+                        )
+                    },
+                    "transit_free":{
+                        "action" : ValidatorOption(
+                            "action", ("reject", "warning","tag"), mandatory=False, default="reject"
+                        ),
+                        "asns" : ValidatorASNList(
+                            mandatory=False
                         )
                     },
                     "rpki_bgp_origin_validation": {

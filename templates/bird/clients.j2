@@ -244,8 +244,10 @@ filter receive_from_{{ client.id }} {
 	{% if cfg.filtering.transit_free.action and client_transit_free_asns %}
 	# AS_PATH: transit-free ASNs
 	if bgp_path ~ [{{ client_transit_free_asns|sort|join(", ")}}] then
-	{%	if cfg.filtering.transit_free.action == "reject" %}
+	{%	if client.cfg.filtering.transit_free.action == "reject" %}
 		{{ reject(client, 8, '"AS_PATH [", bgp_path ,"] contains transit-free ASN - REJECTING ", net') }}
+	{%	elif client.cfg.filtering.transit_free.action == "tag" %}
+		{{ add_communities(cfg.communities.as_path_contains_transit, tabs=2) }}
 	{%	else %}
 		print "AS_PATH [", bgp_path ,"] contains transit-free ASN - WARNING ", net;
 	{%	endif %}

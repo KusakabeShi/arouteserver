@@ -1154,7 +1154,7 @@ class TestConfigParserGeneral(TestConfigParserBase):
     def test_transit_free_action(self):
         """{}: transit free, action"""
         self.assertEqual(self.cfg["filtering"]["transit_free"]["action"], None)
-        self._test_option(self.cfg["filtering"]["transit_free"], "action", ("reject", "warning"))
+        self._test_option(self.cfg["filtering"]["transit_free"], "action", ("reject", "warning","tag"))
         self._test_optional(self.cfg["filtering"]["transit_free"], "action")
 
     def test_never_via_route_servers_peering_db(self):
