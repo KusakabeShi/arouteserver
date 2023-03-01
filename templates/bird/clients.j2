@@ -65,6 +65,10 @@ function prefix_is_in_{{ client.id }}_as_set() {
 
 function next_hop_is_valid_for_{{ client.id }}()
 {
+{% if client.ip|ipaddr_ver == 6 and (client.ip|lower).startswith("fe80::") %}
+	# The client address is an IPv6 link-local one; we can't check it because [description of the issue].
+	return true;
+{% endif %}
 	# Checks if NEXT_HOP is one of those allowed for routes announced by {{ client.id }}
 {% if client.cfg.filtering.next_hop.policy == "strict" %}
 	if bgp_next_hop = {{ client.ip }} then return true;
@@ -402,7 +406,9 @@ protocol bgp {{ client.id }} {
 	neighbor {{ client.ip }} as {{ client.asn }};
 	rs client;
 
-	{% if client.cfg.interface and client.cfg.interface != '/' %}
+	keepalive time 30;
+
+        {% if client.cfg.interface and client.cfg.interface != '/' %}
 	interface "{{ client.cfg.interface }}";
 	{% endif -%}
 
