@@ -99,6 +99,11 @@ class ConfigParserClients(ConfigParserBase):
                             mandatory=False
                         )
                     },
+
+                    "never_via_route_servers":{
+                        "peering_db" : ValidatorBool(mandatory=False),
+                        "asns" : ValidatorASNList(mandatory=False),
+                    },
                     "rpki_bgp_origin_validation": {
                         "enabled": ValidatorBool(mandatory=False),
                         "reject_invalid": ValidatorBool(mandatory=False),
